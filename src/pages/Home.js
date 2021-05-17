@@ -7,7 +7,7 @@ import Game from "../components/Game";
 //Styling and Animation
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { upcomingGamesUrl } from "../api";
+import { popularGamesUrl, upcomingGamesUrl } from "../api";
 
 const Home = () => {
   //FETCH GAMES
@@ -24,6 +24,30 @@ const Home = () => {
       <h2>Upcoming Games</h2>
       <Games>
         {upcoming.map((game) => (
+          <Game
+            name={game.name}
+            released={game.released}
+            id={game.id}
+            image={game.background_image}
+            key={game.id}
+          />
+        ))}
+      </Games>
+      <h2>Popular Games</h2>
+      <Games>
+        {popular.map((game) => (
+          <Game
+            name={game.name}
+            released={game.released}
+            id={game.id}
+            image={game.background_image}
+            key={game.id}
+          />
+        ))}
+      </Games>
+      <h2>new Games</h2>
+      <Games>
+        {newGames.map((game) => (
           <Game
             name={game.name}
             released={game.released}
