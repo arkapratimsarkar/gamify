@@ -1,6 +1,11 @@
-import { FETCH_GAMES } from "../constants";
+import { FETCH_GAMES, FETCH_SEARCHED } from "../constants";
 import axios from "axios";
-import { popularGamesUrl, upcomingGamesUrl, newGamesUrl } from "../api";
+import {
+  popularGamesUrl,
+  upcomingGamesUrl,
+  newGamesUrl,
+  searchGameUrl,
+} from "../api";
 
 // Action Creators
 // loadGames gonna return a function with dispatch for thunk
@@ -15,6 +20,17 @@ export const loadGames = () => async (dispatch) => {
       popular: popularData.data.results,
       upcoming: upcomingData.data.results,
       newGames: newGamesData.data.results,
+    },
+  });
+};
+
+export const fetchSearch = (game_name) => async (dispatch) => {
+  const searchGames = await axios.get(searchGameUrl(game_name));
+
+  dispatch({
+    type: FETCH_SEARCHED,
+    payload: {
+      searched: searchGames.data.results,
     },
   });
 };
