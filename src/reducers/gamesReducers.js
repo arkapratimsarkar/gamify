@@ -1,4 +1,4 @@
-import { FETCH_GAMES, FETCH_SEARCHED } from "../constants";
+import { FETCH_GAMES, FETCH_SEARCHED, CLEAR_SEARCHED } from "../constants";
 
 const initialState = {
   popular: [],
@@ -20,6 +20,11 @@ const gamesReducers = (state = initialState, action) => {
       return {
         ...state,
         searched: action.payload.searched,
+      };
+    case CLEAR_SEARCHED:
+      return {
+        ...state,
+        searched: [],
       };
     default:
       return { ...state };

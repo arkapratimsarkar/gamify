@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 //Styling and Animation
 import styled from "styled-components";
 import { motion } from "framer-motion";
@@ -6,30 +6,34 @@ import logo from "../img/logo.svg";
 //Redux & Routes
 import { fetchSearch } from "../actions/gamesActions";
 import { useDispatch } from "react-redux";
+//Constants
+import { CLEAR_SEARCHED } from "../constants";
 
 const Nav = () => {
   const dispatch = useDispatch();
-
-  let searchedTerm = "";
+  const [textInput, setTextInput] = useState("");
 
   const inputHandler = (e) => {
-    searchedTerm = e.target.value;
-    return searchedTerm;
+    setTextInput(e.target.value);
   };
 
   const submitSearch = (e) => {
     e.preventDefault();
-    dispatch(fetchSearch(searchedTerm));
+    dispatch(fetchSearch(textInput));
+    setTextInput("");
+  };
+  const clearSearhed = () => {
+    dispatch({ type: CLEAR_SEARCHED });
   };
 
   return (
     <StyledNav>
-      <Logo>
+      <Logo onClick={clearSearhed}>
         <img src={logo} alt="logo" />
         <h1>Gamify</h1>
       </Logo>
       <form className="search">
-        <input onChange={inputHandler} type="text" />
+        <input value={textInput} onChange={inputHandler} type="text" />
         <button onClick={submitSearch} type="submit">
           Search
         </button>
